@@ -116,6 +116,7 @@ content2 (string, optional): 富文本或者markdown转换后的html内容 , -->
             </el-form-item>
           </el-col>
         </el-row>
+        
         <el-form-item>
           <el-button type="primary" @click="doSubmit">{{
             articleId ? '保存编辑' : '新增文章'

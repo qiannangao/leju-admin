@@ -137,6 +137,13 @@ export const constantRoutes = [
         meta: { title: '商品列表', icon: 'el-icon-tickets' }
       },
       {
+        path: 'addDetail',
+        name: 'AddDetail',
+        hidden: true,
+        component: () => import('@/views/product/productList/productDetail'),
+        meta: { title: '新增商品', icon: 'el-icon-tickets', activeMenu: '/product/list' }
+      },
+      {
         path: 'category',
         name: 'Category',
 
