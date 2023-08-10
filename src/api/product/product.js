@@ -20,4 +20,26 @@ export function getAllCategory() {
     url: `/lejuAdmin/category/getAllCategory`
   })
 }
+// 新增商品
+export function addProductAndSkus(data) {
+  return request({
+    url: `/lejuAdmin/product/addProductAndSkus`,
+    method: 'post',
+    data
+  })
+}
+// 获取商品详情
+export function productSkusDetail(id) {
+  return request({
+    url: ` /lejuAdmin/product/productSkusDetail/${id}`
+  })
+}
+// 更新
+export function updateProductAndSkus(data) {
+  return request({
+    url: `/lejuAdmin/product/updateProductAndSkus`,
+    method: 'post',
+    data
+  })
+}
 

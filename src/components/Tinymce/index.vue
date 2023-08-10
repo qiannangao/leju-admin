@@ -22,7 +22,7 @@ import axios from 'axios'
 import mixin from '@/mixins/index'
 // why use this cdn, detail see https://github.com/PanJiaChen/tinymce-all-in-one
 const tinymceCDN = 'https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js'
-
+// const tinymceCDN = './tinymce.js'
 export default {
   name: 'Tinymce',
   // components: { editorImage },

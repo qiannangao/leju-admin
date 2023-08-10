@@ -241,6 +241,10 @@ export default {
     // 去新增
     goAddProduct() {
       this.$router.push({ name: 'AddDetail' })
+    },
+    // 编辑商品
+    editProduct(id) {
+      this.$router.push({ name: 'EditDetail', params: { id }})
     }
   }
 }
