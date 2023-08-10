@@ -150,7 +150,7 @@
           </template>
         </el-table-column>
         <el-table-column label="sku" width="180" align="center">
-          <el-button type="text">编辑sku</el-button>
+          <el-button type="text" @click="dialogTableVisible = true">编辑sku</el-button>
         </el-table-column>
         <el-table-column prop="weight" label="重量" width="120" align="center" />
         <el-table-column prop="sort" label="排序" width="120" align="center" />
@@ -166,7 +166,118 @@
           </template>
         </el-table-column>
 
-      </el-table></el-card>
+      </el-table>
+      <el-dialog title="sku列表" :visible.sync="dialogTableVisible">
+        <el-table :data="pmsSkuStockList" border stripe>
+          <el-table-column
+            type="index"
+            label="#"
+            width="50"
+            align="center"
+            fixed="left"
+          />
+          <el-table-column
+            label="图片"
+            width="100"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-upload
+                class="avatar-uploader"
+                :action="uploadFileOss"
+                :show-file-list="false"
+                :headers="token"
+                :on-success="handleskuImgSuccess"
+                :before-upload="beforeskuImgUpload"
+                @click.native="uploadSkuImg(scope.row.tempId)"
+              >
+                <img v-if="scope.row.pic" width="80" height="80" :src="scope.row.pic">
+                <i
+                  v-else
+                  class="el-icon-plus
+                        el-icon-sku
+                        avatar-uploader-icon-sku"
+                />
+              </el-upload>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="颜色"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.color" size="normal" />
+
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="大小"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.size" size="normal" />
+
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="库存"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.stock" size="normal" />
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="库存警戒线"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.lowStock" size="normal" />
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="锁定库存"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.lockStock" size="normal" />
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="sku编码"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.skuCode" />
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="价格（单位：分）"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.price" size="normal" />
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="销量"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.sale" size="normal" />
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="操作"
+            align="center"
+            fixed="right"
+          >
+            <el-button type="text" size="mini" style="color:red">删除</el-button>
+
+          </el-table-column>
+        </el-table>
+      </el-dialog>
+    </el-card>
     <!-- 4分页器 -->
     <el-pagination
       class="margin-30"
@@ -193,7 +304,9 @@ export default {
     return {
       formProduct: {},
       brandList: [],
-      productList: []
+      productList: [],
+      dialogTableVisible: false,
+      dialogFormVisible: false
     }
   },
 
