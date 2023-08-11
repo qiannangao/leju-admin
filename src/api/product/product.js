@@ -42,4 +42,9 @@ export function updateProductAndSkus(data) {
     data
   })
 }
-
+// 根据商品id查询库存
+export function getSkusByProductId(id) {
+  return request({
+    url: `/lejuAdmin/sku/getSkusByProductId/${id}`
+  })
+}

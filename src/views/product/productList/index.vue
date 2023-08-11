@@ -150,7 +150,9 @@
           </template>
         </el-table-column>
         <el-table-column label="sku" width="180" align="center">
-          <el-button type="text" @click="dialogTableVisible = true">编辑sku</el-button>
+          <template slot-scope="scope">
+            <el-button type="text" @click="editSku(scope.row.id)">编辑sku</el-button>
+          </template>
         </el-table-column>
         <el-table-column prop="weight" label="重量" width="120" align="center" />
         <el-table-column prop="sort" label="排序" width="120" align="center" />
@@ -295,7 +297,7 @@
 </template>
 
 <script>
-import { findAllBrand, productsByPage } from '@/api/product/product'
+import { findAllBrand, productsByPage, getSkusByProductId } from '@/api/product/product'
 import mixin from '@/mixins/index'
 export default {
   name: 'VueAdminTemplateMasterIndex',
@@ -306,7 +308,8 @@ export default {
       brandList: [],
       productList: [],
       dialogTableVisible: false,
-      dialogFormVisible: false
+      dialogFormVisible: false,
+      pmsSkuStockList: []
     }
   },
 
@@ -333,6 +336,7 @@ export default {
         this.pagination.limit,
         this.formProduct
       )
+      console.log('getproductsByPage', res)
       const { success, data, message } = res
       if (success) {
         this.productList = data.rows
@@ -358,6 +362,18 @@ export default {
     // 编辑商品
     editProduct(id) {
       this.$router.push({ name: 'EditDetail', params: { id }})
+    },
+    // 编辑sku
+    async editSku(id) {
+      console.log(id)
+      const res = await getSkusByProductId(id)
+      const { success, data, message } = res
+      if (success) {
+        this.pmsSkuStockList = data.items
+        this.dialogTableVisible = true
+      } else {
+        this.$message.error(message)
+      }
     }
   }
 }
