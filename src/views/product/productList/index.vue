@@ -93,7 +93,7 @@
             size="mini"
             @click="goAddProduct"
           >新增</el-button>
-          <el-button type="primary" size="mini">导出为excel文件</el-button>
+          <el-button type="primary" size="mini" @click="exportExcel">导出为excel文件</el-button>
         </span>
       </div>
       <el-table :data="productList" style="width: 100%">
@@ -169,6 +169,7 @@
         </el-table-column>
 
       </el-table>
+      <!-- 弹出的sku列表 -->
       <el-dialog title="sku列表" :visible.sync="dialogTableVisible">
         <el-table :data="pmsSkuStockList" border stripe>
           <el-table-column
@@ -189,9 +190,6 @@
                 :action="uploadFileOss"
                 :show-file-list="false"
                 :headers="token"
-                :on-success="handleskuImgSuccess"
-                :before-upload="beforeskuImgUpload"
-                @click.native="uploadSkuImg(scope.row.tempId)"
               >
                 <img v-if="scope.row.pic" width="80" height="80" :src="scope.row.pic">
                 <i
@@ -310,6 +308,7 @@ export default {
       dialogTableVisible: false,
       dialogFormVisible: false,
       pmsSkuStockList: []
+
     }
   },
 
@@ -368,13 +367,42 @@ export default {
       console.log(id)
       const res = await getSkusByProductId(id)
       const { success, data, message } = res
+      // const tempskuList = []
       if (success) {
+        // data.items.forEach(item => {
+        //   item.spData.map(item => {
+        //     console.log(item.key, item.value)
+        //   })
+        // })
+
         this.pmsSkuStockList = data.items
         this.dialogTableVisible = true
       } else {
         this.$message.error(message)
       }
+    },
+    // 导出Excel表格
+    exportExcel() {
+      const tHeader = ['id', '商品名字', '图片', '价格', '创建日期']
+      const filterVal = ['id', 'name', 'pic', 'price', 'createTime']
+      const list = this.productList
+      const data = this.formatJson(filterVal, list)
+      import('@/vendor/Export2Excel').then(excel => {
+        excel.export_json_to_excel({
+          header: tHeader, // 表头 必填
+          data, // 具体数据 必填
+          filename: 'excel-list', // 非必填
+          autoWidth: true, // 非必填
+          bookType: 'xlsx' // 非必填
+        })
+      })
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => {
+        return v[j]
+      }))
     }
+
   }
 }
 </script>
