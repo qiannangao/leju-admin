@@ -847,6 +847,13 @@ export default {
       console.log('tempSkuList', tempSkuList)
       this.pmsSkuStockList = tempSkuList
       // 2 规整 product
+      const tempPics = []
+      this.product.albumPics.forEach(item => {
+        tempPics.push(
+          item.url
+        )
+      })
+      this.product.albumPics = tempPics
       this.product.albumPics = this.product.albumPics.join(',')
       this.product.serviceIds = this.product.serviceIds.join(',')
       // 格式化商品
