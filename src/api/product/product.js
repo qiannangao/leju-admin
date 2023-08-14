@@ -6,6 +6,12 @@ export function findAllBrand() {
     url: `lejuAdmin/brand/findAllBrand`
   })
 }
+// 获取品牌列表分页
+export function findBrandByPage(start, limit) {
+  return request({
+    url: `/lejuAdmin/brand/findBrandByPage/${start}/${limit}`
+  })
+}
 // 获取商品列表
 export function productsByPage(start, limit, data) {
   return request({

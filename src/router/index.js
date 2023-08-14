@@ -92,35 +92,43 @@ export const constantRoutes = [
   {
     path: '/order',
     component: Layout,
-    redirect: '/order/address',
+    redirect: '/order/orders',
     name: 'Order',
     meta: { title: '订单管理', icon: 'el-icon-folder-opened' },
     children: [
       {
-        path: 'address',
-        name: 'Address',
-        component: () => import('@/views/order/address'),
-        meta: { title: '地址管理', icon: 'el-icon-tickets' }
-      },
-      {
         path: 'orders',
         name: 'Orders',
-        hidden: true,
-        component: () => import('@/views/order/orders'),
+        component: () => import('@/views/order/orders/index'),
         meta: { title: '订单列表', icon: 'el-icon-tickets' }
+      },
+      {
+        path: 'orderDetail/:id',
+        name: 'OrderDetail',
+        hidden: true,
+        component: () => import('@/views/order/orders/orderDetail'),
+        meta: { title: '订单详情', icon: 'el-icon-tickets', activeMenu: '/order/orders' }
       },
       {
         path: 'orderback',
         name: 'Orderback',
-        component: () => import('@/views/order/orderback'),
+        component: () => import('@/views/order/orderback/index'),
         meta: { title: '退单列表', icon: 'el-icon-tickets' }
       },
       {
-        path: 'material',
-        name: 'Material',
-        component: () => import('@/views/content/material/index'),
-        meta: { title: '素材列表', icon: 'el-icon-picture-outline' }
+        path: 'orderbackDetail/:id',
+        name: 'OrderbackDetail',
+        hidden: true,
+        component: () => import('@/views/order/orderback/orderBackDetail'),
+        meta: { title: '退单信息', icon: 'el-icon-tickets', activeMenu: '/order/orderback' }
+      },
+      {
+        path: 'address',
+        name: 'Address',
+        component: () => import('@/views/order/address/index'),
+        meta: { title: '地址管理', icon: 'el-icon-tickets' }
       }
+
     ]
   },
   {

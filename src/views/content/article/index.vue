@@ -80,7 +80,7 @@
           <template slot-scope="scope">
             <!-- 0 富文本 1 markdown -->
             <el-button v-if="scope.row.editorType==0" style="color:#409EFF" plain size="mini">富文本</el-button>
-            <el-button v-else style="color:#409EFF" plain size="mini">markdown</el-button>
+            <el-button v-if="scope.row.editorType==1" style="color:#409EFF" plain size="mini">markdown</el-button>
 
           </template>
         </el-table-column>
