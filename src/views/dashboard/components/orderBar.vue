@@ -6,6 +6,7 @@
 
 <script>
 import * as echarts from 'echarts'
+import orderBackData from './data'
 export default {
   name: 'VueAdminTemplateMasterOrderBar',
 
@@ -22,12 +23,17 @@ export default {
   methods: {
     init() {
       const barEchart = echarts.init(document.getElementById('order-bar'))
+      const dateList = orderBackData.map(item => item.date)
+      const orderList = orderBackData.map(item => item.order)
+      const returnList = orderBackData.map(item => item.returnNum)
       const option = {
         title: {
           text: '订单退单柱状图',
           textStyle: {
             color: '#94A2CD',
-            fontStyle: 'normal'
+            fontStyle: 'normal',
+            fontWeight: 500,
+            fontSize: 24
           }
         },
         tooltip: {
@@ -41,11 +47,13 @@ export default {
         },
         legend: {
           type: 'plain',
-          bottom: 10
+          bottom: 10,
+          textStyle: {
+            color: '#8B99C4' }
         },
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: dateList
         },
         yAxis: {
           type: 'value',
@@ -55,6 +63,9 @@ export default {
               color: '#979AA5'
             }
           },
+          splitLine: {
+            show: false
+          },
           axisTick: {
             show: true
           }
@@ -62,15 +73,57 @@ export default {
         series: [
           {
             name: '订单',
-            data: [120, 200, 150, 80, 70, 110, 130],
+            data: orderList,
             type: 'bar',
-            color: ['#AD01F9']
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [
+                {
+                  offset: 0,
+                  color: '#7B06DD'// 0% 处的颜色
+                },
+                {
+                  offset: 0.5,
+                  color: '#B400FB' // 0% 处的颜色
+                },
+                {
+                  offset: 1,
+                  color: '#AC05D4' // 100% 处的颜色
+                }
+              ],
+              global: false // 缺省为 false
+            }
           },
           {
             name: '退单',
-            data: [120, 200, 150, 80, 70, 110, 130],
+            data: returnList,
             type: 'bar',
-            color: ['#23AEF4']
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [
+                {
+                  offset: 0,
+                  color: '#24C8FF' // 0% 处的颜色
+                },
+                {
+                  offset: 0.5,
+                  color: '#24A0FF' // 0% 处的颜色
+                },
+                {
+                  offset: 1,
+                  color: '#2493FF' // 100% 处的颜色
+                }
+              ],
+              global: false // 缺省为 false
+            }
           }
         ]
       }
