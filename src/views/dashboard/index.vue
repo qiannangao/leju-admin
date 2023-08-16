@@ -6,21 +6,36 @@
       @click="changeFullScreen"
     />
     <div class="title">不凡数据大屏</div>
+    <div class="date">{{ newDate }}</div>
     <!-- <div id="box" style="width:100px;height:30px" /> -->
 
     <div class="data">
-      <!--数字增长 -->
-      <div class="sell-data">
-        <div style="font-size: 24px">
-          电商数据
-          <span style="color: #3a4d63">Shell Data</span>
+
+      <div>
+        <!--数字增长 -->
+        <div class="sell-data">
+          <div style="font-size: 24px">
+            电商数据
+            <span style="color: #3a4d63">Shell Data</span>
+          </div>
+          <div class="sale">
+            <span style="float: left">销售量</span>
+            <span style="float: right; color: #3387e5">万元</span>
+          </div>
+          <div class="num">
+            <countTo :start-val="startVal" :end-val="endVal" :duration="3000" />
+          </div>
         </div>
-        <div class="sale">
-          <span style="float: left">销售量</span>
-          <span style="float: right; color: #3387e5">万元</span>
-        </div>
-        <div class="num">
-          <countTo :start-val="startVal" :end-val="endVal" :duration="3000" />
+        <!-- 百分比 -->
+        <div style="margin-left:5px">
+          <div style="color:#838FBB;margin-bottom:20px">完成百分比</div>
+          <el-progress
+            :percentage="progessData"
+
+            stroke-width="15"
+            text-inside
+            text-color="#fff"
+          />
         </div>
       </div>
       <!-- 柱形图 -->
@@ -82,7 +97,7 @@
         </div>
       </div>
     </div>
-    <!-- 完成百分比 -->
+
     <div class="middle">
       <!-- 词云 -->
       <div class="word-echart">
@@ -188,10 +203,21 @@ export default {
           num: 111,
           price: 378
         }
-      ]
+      ],
+      progessData: 30,
+
+      newDate: new Date()
     }
   },
+  created() {
+    this.numChange()
+  },
   mounted() {
+    // 挂载时间
+    const that = this
+    this.timer = setInterval(function() {
+      that.newDate = new Date().toLocaleString()
+    })
     // 初始化echarts实例对象
     const textEcharts = echarts.init(document.getElementById('box'))
     // 配置
@@ -216,7 +242,19 @@ export default {
     // 设置
     textEcharts.setOption(option)
   },
+  // 销毁时清除计时器
+  beforeDestroy: function() {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+  },
   methods: {
+    // 百分比数字变化
+    numChange() {
+      setTimeout(() => {
+        this.progessData = 88
+      }, 1000)
+    },
     // 全屏
     changeFullScreen() {
       if (screenfull.isEnabled) {
@@ -240,8 +278,18 @@ export default {
     color: #fff;
     width: 300px;
     height: 50px;
-    margin: 20px auto;
+    margin: 0px auto 20px;
     text-shadow: 0 0 3px #fff, 0 0 15px #fff;
+  }
+  .date{
+    width: 300px;
+    height: 50px;
+    text-align: right;
+    font-size: 24px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 30px;
   }
   .data {
     width: 100%;
@@ -258,7 +306,7 @@ export default {
       margin-left: 5px;
       // border: 1px solid #000;
       width: 300px;
-      height: 200px;
+      height: 150px;
       color: #9aa8d4;
       .title {
         font-size: 24px;
@@ -274,6 +322,12 @@ export default {
         font-size: 60px;
       }
     }
+    /* 渐变进度条 */
+ ::v-deep .el-progress-bar__inner{
+  background-color: unset;
+background-image:linear-gradient(to right, #24CBFF, #8A0AFF)
+}
+
     .count-data {
       width: 320px;
       height: 300px;
@@ -319,9 +373,11 @@ export default {
   .middle {
     width: 100%;
     height: 600px;
+    position: relative;
     .word-echart {
-      float: left;
-      margin-left: 5px;
+     position: absolute;
+     left: 5px;
+     top: -100px;
       width: 400px;
       height: 500px;
       // border: 1px solid #000;
@@ -330,6 +386,7 @@ export default {
       width: 600px;
       height: 500px;
       float: left;
+      margin-left: 480px;
       .map-echart {
         float: left;
         // border: 1px solid #000;
@@ -349,6 +406,12 @@ export default {
     position: absolute;
     right: 5px;
     top: 400px;
+    .el-table::before {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0px;
+    }
  /*最外层透明*/
 ::v-deep .el-table,
 ::v-deep .el-table__expanded-cell {
