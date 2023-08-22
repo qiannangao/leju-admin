@@ -17,6 +17,7 @@ import '@/permission' // permission control
 // 引入mavon-editormarkdown编辑
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import directives from '@/directives'
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -36,6 +37,7 @@ if (process.env.NODE_ENV === 'production') {
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.use(mavonEditor)
+directives(Vue)
 new Vue({
   el: '#app',
   router,

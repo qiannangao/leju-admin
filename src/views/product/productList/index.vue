@@ -282,7 +282,7 @@
     <el-pagination
       class="margin-30"
       :current-page.sync="pagination.start"
-      :page-sizes="[3, 6, 9, 12]"
+      :page-sizes="[10, 20, 30, 40]"
       :page-size="pagination.limit"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pagination.total"
@@ -339,6 +339,7 @@ export default {
       const { success, data, message } = res
       if (success) {
         this.productList = data.rows
+        this.pagination.total = data.total
       } else {
         this.$message.error(message)
       }

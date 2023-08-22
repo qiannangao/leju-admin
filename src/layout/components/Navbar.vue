@@ -42,6 +42,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import { getUserinfo, removeUserinfo } from '@/utils/myAuth'
 import { removeToken } from '@/utils/myAuth'
+import store from '@/store'
 // import { removeToken } from '@/utils/myAuth'
 export default {
   components: {
@@ -68,6 +69,8 @@ export default {
     //  清空token
       removeToken()
       removeUserinfo()
+      // 退出時清空permissionList
+      store.commit('user/SET_PERMISSIMO_LIST', [])
       // 跳到登录页面
       this.$router.push('/login')
     },

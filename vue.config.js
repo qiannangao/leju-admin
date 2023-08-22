@@ -37,7 +37,12 @@ module.exports = {
       errors: true
     },
     proxy: {
+      // '/[lejuAdmin|admin]'
       '/lejuAdmin': {
+        target: 'http://leju.bufan.cloud',
+        changeOrigin: true
+      },
+      '/admin': {
         target: 'http://leju.bufan.cloud',
         changeOrigin: true
       }

@@ -53,7 +53,11 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
-  },
+  }
+
+]
+export const asyncRoutes = [
+// 内容
   {
     path: '/content',
     component: Layout,
@@ -71,14 +75,14 @@ export const constantRoutes = [
         path: 'detail',
         name: 'Detail',
         hidden: true,
-        component: () => import('@/views/content/article/detail'),
+        component: () => import('@/views/content/article/detail/index'),
         meta: { title: '新增文章', icon: 'el-icon-tickets', activeMenu: '/content/article' }
       },
       {
         path: 'edit/:id',
         name: 'Edit',
         hidden: true,
-        component: () => import('@/views/content/article/detail'),
+        component: () => import('@/views/content/article/detail/index'),
         meta: { title: '编辑文章', icon: 'el-icon-tickets', activeMenu: '/content/article' }
       },
       {
@@ -89,48 +93,7 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/order',
-    component: Layout,
-    redirect: '/order/orders',
-    name: 'Order',
-    meta: { title: '订单管理', icon: 'el-icon-folder-opened' },
-    children: [
-      {
-        path: 'orders',
-        name: 'Orders',
-        component: () => import('@/views/order/orders/index'),
-        meta: { title: '订单列表', icon: 'el-icon-tickets' }
-      },
-      {
-        path: 'orderDetail/:id',
-        name: 'OrderDetail',
-        hidden: true,
-        component: () => import('@/views/order/orders/orderDetail'),
-        meta: { title: '订单详情', icon: 'el-icon-tickets', activeMenu: '/order/orders' }
-      },
-      {
-        path: 'orderback',
-        name: 'Orderback',
-        component: () => import('@/views/order/orderback/index'),
-        meta: { title: '退单列表', icon: 'el-icon-tickets' }
-      },
-      {
-        path: 'orderbackDetail/:id',
-        name: 'OrderbackDetail',
-        hidden: true,
-        component: () => import('@/views/order/orderback/orderBackDetail'),
-        meta: { title: '退单信息', icon: 'el-icon-tickets', activeMenu: '/order/orderback' }
-      },
-      {
-        path: 'address',
-        name: 'Address',
-        component: () => import('@/views/order/address/index'),
-        meta: { title: '地址管理', icon: 'el-icon-tickets' }
-      }
-
-    ]
-  },
+  // 商品
   {
     path: '/product',
     component: Layout,
@@ -175,119 +138,101 @@ export const constantRoutes = [
 
     ]
   },
+  // 订单
   {
-    path: '/example',
+    path: '/order',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    redirect: '/order/orders',
+    name: 'Order',
+    meta: { title: '订单管理', icon: 'el-icon-folder-opened' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'orders',
+        name: 'Orders',
+        component: () => import('@/views/order/orders/index'),
+        meta: { title: '订单列表', icon: 'el-icon-tickets' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
+        path: 'orderDetail/:id',
+        name: 'OrderDetail',
+        hidden: true,
+        component: () => import('@/views/order/orders/orderDetail'),
+        meta: { title: '订单详情', icon: 'el-icon-tickets', activeMenu: '/order/orders' }
       },
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
+        path: 'orderback',
+        name: 'Orderback',
+        component: () => import('@/views/order/orderback/index'),
+        meta: { title: '退单列表', icon: 'el-icon-tickets' }
+      },
+      {
+        path: 'orderbackDetail/:id',
+        name: 'OrderbackDetail',
+        hidden: true,
+        component: () => import('@/views/order/orderback/orderBackDetail'),
+        meta: { title: '退单信息', icon: 'el-icon-tickets', activeMenu: '/order/orderback' }
+      },
+      {
+        path: 'address',
+        name: 'Address',
+        component: () => import('@/views/order/address/index'),
+        meta: { title: '地址管理', icon: 'el-icon-tickets' }
       }
+
     ]
   },
-
+  // 用户
   {
-    path: 'external-link',
+    path: '/user',
     component: Layout,
+    redirect: '/user/users',
+    name: 'User',
+    meta: { title: '注册用户管理', icon: 'el-icon-folder-opened' },
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: 'users',
+        name: 'Users',
+        component: () => import('@/views/user/users/index'),
+        meta: { title: '用户管理', icon: 'el-icon-tickets' }
       }
     ]
   },
+  // 权限
+  {
+    path: '/auth',
+    component: Layout,
+    redirect: '/auth/roles',
+    name: 'Auth',
+    meta: { title: '权限管理', icon: 'el-icon-folder-opened' },
+    children: [
+      {
+        path: 'account',
+        name: 'Account',
+        component: () => import('@/views/auth/account/index'),
+        meta: { title: '账号管理', icon: 'el-icon-tickets' }
+      },
+      {
+        path: 'roles',
+        name: 'Roles',
 
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+        component: () => import('@/views/auth/roles/index'),
+        meta: { title: '角色管理', icon: 'el-icon-tickets', activeMenu: '/content/article' }
+      },
+      {
+        path: 'resource',
+        name: 'Resource',
+
+        component: () => import('@/views/auth/resource/index'),
+        meta: { title: '资源管理', icon: 'el-icon-tickets' }
+      }
+
+    ]
+  }
 ]
-
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+  routes: constantRoutes.concat(asyncRoutes)
 })
 
 const router = createRouter()

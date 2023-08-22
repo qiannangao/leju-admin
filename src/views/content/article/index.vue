@@ -43,7 +43,7 @@
     <el-card shadow="never" class="margin-30" :body-style="{ padding: '20px' }">
       <div slot="header">
         <span>
-          <el-button type="primary" size="mini" @click="doAddArticle">新增</el-button>
+          <el-button v-btn:add type="primary" size="mini" @click="doAddArticle">新增</el-button>
         </span>
       </div>
       <!-- card body -->
@@ -86,8 +86,8 @@
         </el-table-column>
         <el-table-column prop="editorType" label="操作">
           <template slot-scope="scope">
-            <el-button type="text" size="mini" style="color:#409EFF" icon="el-icon-edit-outline" @click="editArticle(scope.row.id)">编辑文章</el-button>
-            <el-button type="text" size="mini" style="color:#f00" @click="doDelArticle(scope.row.id)">删除</el-button>
+            <el-button v-btn:edit type="text" size="mini" style="color:#409EFF" icon="el-icon-edit-outline" @click="editArticle(scope.row.id)">编辑文章</el-button>
+            <el-button v-btn:remove type="text" size="mini" style="color:#f00" @click="doDelArticle(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
